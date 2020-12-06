@@ -25,8 +25,10 @@
                         $busy_seats = $st['busy_seats'];
                     }
 
+                    $date = date("Y-m-d\TH:i",strtotime($show_time));
+
                     // Создание формы
-                    print "<th> Начало показа: </th> <th><input name='show_time' size='50' type='datetime-local' class='date' value='$show_time'></th>";
+                    print "<th> Начало показа: </th> <th><input name='show_time' type='datetime-local' value='$date'></th>";
                     print "<tr><th> ID фильма: </th> <th><input name='film_id' size='50' type='text' value='$film_id'></th>";
                     print "<tr><th> ID кинозала: </th> <th><input name='room_id' size='50' type='text' value='$room_id'></th>";
                     print "<tr><th> Количество мест: </th> <th><input name='seats' size='50' type='text' value='$seats'></th>";
@@ -34,6 +36,7 @@
 
                     print "<input type='hidden' name='id' size='30' value='$id'>";
                 ?>
+            
             </table>
             <p><input type='submit' name='save' value='Сохранить'></p>
         </form>
