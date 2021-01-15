@@ -80,8 +80,34 @@
         <form action="save_new.php" method="get">
             <table border="0">
                 <tr><th> Начало показа:</th><th> <input type="datetime-local" class="date" name="show_time"></th>
-                <tr><th> ID фильма: </th> <th><input name='film_id' size='50' type='text'></th>
-                <tr><th> ID кинозала: </th> <th><input name='room_id' size='50' type='text'></th>
+
+                <?php
+                    $result = $mysqli->query("SELECT id, name FROM films");
+                    echo "<tr><th>Фильм: </th><th><select name='film_id'>";
+
+                    if ($result){
+                        while ($row = $result->fetch_array()){
+                            $id = $row['id'];
+                            $name = $row['name'];
+
+                            echo "<option value='$id'>$name</option>";
+                        }
+                    }
+                    echo "</select></th>";
+
+                    $result = $mysqli->query("SELECT id, name FROM rooms");
+                    echo "<tr><th>Кинозал: </th><th><select name='room_id'>";
+
+                    if ($result){
+                        while ($row = $result->fetch_array()){
+                            $id = $row['id'];
+                            $name = $row['name'];
+
+                            echo "<option value='$id'>$name</option>";
+                        }
+                    }
+                    echo "</select></th>";
+                ?>
                 <tr><th> Количество мест: </th> <th><input name='seats' size='50' type='text'></th>
                 <tr><th> Количество занятых мест: </th> <th><input name='busy_seats' size='50' type='text'></th>
             </table>
