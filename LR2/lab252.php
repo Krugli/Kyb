@@ -1,32 +1,22 @@
-<p> Вариант 8
+<p> Вариант 16
 <p> 
 <?php
     function F($u, $t){
-        if ($t>=0){
-            if ($u>=0){
-		return $u / $t - $t * $t * $u;
-           }
-	    else{
-		return $u + $t * $t / $u;
-	   }
-       }
+        if ($u <= $t){
+            return (pow($u, 4) + $t) / cos($u + pi()/4);
+        }
         else{
-	  if ($u>=0){
-		return $u - $t;
-           }
-	    else{
-		return $t + 3 * $u / $u * $t;
-	   } 
-}
+            return log(abs($u + 4)) / sqrt(abs($t-4));
+        }
     }
 
-    $a = rand(1, 10);
-    $b = rand(1, 10);
+    $a = rand(-10, 10);
+    $b = rand(-10, 10);
 
     echo "<p> Аргумент A = ".$a;
     echo "<p> Аргумент B = ".$b;
 
-    $z = F($a + 1 / $b, $b * $b * $b * $b * $b * $b * $b * $b / $a * $a * $a * $a * $a * $a) + F(bcpow("$a", '3') / bcpow("$a", '4') + bcpow("$b", '5') / bcpow("$b", '6'), $b - $a);
+    $z = log(F($a / $b, sin($a))) + F($b, sqrt($a + $b));
 
     echo "<p> Результат = ".$z;
 ?>
