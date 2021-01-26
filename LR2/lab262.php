@@ -1,7 +1,7 @@
-<p> Вариант 2
+<p> Вариант 16
 <p> 
 <?php
-    require_once "lbry/lbr2.php";
+    require_once "lib/lib2.php";
 
     print_task();
 
@@ -11,7 +11,10 @@
     echo "<p> Исходная матрица";
     print_matrix($a, $N);
 
-    $sum = correct($a, $N);
+    $p = correct1($a, $N);
 
-    echo "<p> Результат: ". $sum;
+    $sum = correct2($a, $N);
+
+    echo "<p> Сумма: ". $sum;
+    echo "<p> Произведение: ". $p;
 ?>
