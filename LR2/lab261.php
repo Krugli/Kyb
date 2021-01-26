@@ -1,7 +1,7 @@
-<p> Вариант 1
+<p> Вариант 7
 <p> 
 <?php
-    require_once "lbry/lbr1.php";
+    require_once "lib/lib1.php";
 
     print_task();
 
@@ -12,8 +12,11 @@
     echo "<p> Исходная матрица";
     print_matrix($a, $N);
 
-    $a = correct($a, $N);
+    $result = correct($a, $N);
 
-    echo "<p> Скорректированная матрица";
-    print_matrix($a, $N);
+    echo "<p> Результат: ";
+
+    for ($c = 0; $c < $N; $c++){
+        echo $result[$c].", ";
+    }
 ?>
