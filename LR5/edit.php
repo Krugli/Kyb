@@ -10,11 +10,16 @@
                         echo "Не удалось подключиться к БД";
                     }
 
-                    $id = $_GET['id'];
+                    $session_id = $_GET['id'];
 
-                    $result = $mysqli->query("SELECT show_time, film_id,
-                        room_id, seats, busy_seats FROM film_session
-                        WHERE id=$id"
+                    $result = $mysqli->query("SELECT
+                        show_time,
+                        film_id,
+                        room_id,
+                        seats,
+                        busy_seats
+                        FROM film_session
+                        WHERE id=$session_id"
                     );
 
                     if ($result && $st = $result->fetch_array()){
@@ -29,14 +34,51 @@
 
                     // Создание формы
                     print "<th> Начало показа: </th> <th><input name='show_time' type='datetime-local' value='$date'></th>";
-                    print "<tr><th> ID фильма: </th> <th><input name='film_id' size='50' type='text' value='$film_id'></th>";
-                    print "<tr><th> ID кинозала: </th> <th><input name='room_id' size='50' type='text' value='$room_id'></th>";
+
+                    echo "<tr><th>Фильм: </th><th><select name='film_id'>";
+                    $result = $mysqli->query("SELECT id, name FROM films WHERE id=$film_id");
+                    if ($row = $result->fetch_array()){
+                        $id = $row['id'];
+                        $name = $row['name'];
+                        echo "<option selected value='$id'>$name</option>";
+                    }
+
+                    $result = $mysqli->query("SELECT id, name FROM films WHERE id<>$film_id");
+                    if ($result){
+                        while ($row = $result->fetch_array()){
+                            $id = $row['id'];
+                            $name = $row['name'];
+
+                            echo "<option value='$id'>$name</option>";
+                        }
+                    }
+                    echo "</select></th>";
+
+                    echo "<tr><th>Кинозал: </th><th><select name='room_id'>";
+
+                    $result = $mysqli->query("SELECT id, name FROM rooms WHERE id=$room_id");
+                    if ($row = $result->fetch_array()){
+                        $id = $row['id'];
+                        $name = $row['name'];
+                        echo "<option selected value='$id'>$name</option>";
+                    }
+                    
+                    $result = $mysqli->query("SELECT id, name FROM films WHERE id<>$room_id");
+                    if ($result){
+                        while ($row = $result->fetch_array()){
+                            $id = $row['id'];
+                            $name = $row['name'];
+
+                            echo "<option value='$id'>$name</option>";
+                        }
+                    }
+                    echo "</select></th>";
+
                     print "<tr><th> Количество мест: </th> <th><input name='seats' size='50' type='text' value='$seats'></th>";
                     print "<tr><th> Количество занятых мест: </th> <th><input name='busy_seats' size='50' type='text' value='$busy_seats'></th>";
 
-                    print "<input type='hidden' name='id' size='30' value='$id'>";
+                    print "<input type='hidden' name='id' size='30' value='$session_id'>";
                 ?>
-            
             </table>
             <p><input type='submit' name='save' value='Сохранить'></p>
         </form>
